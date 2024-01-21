@@ -26,7 +26,9 @@ public class GenereerMogelijkeOpstellingen {
     public void generate( int colStart, int rowStart, Writer output, Opstelling opstelling, Schip schip, int level, Database database ) throws IOException{
         
         Opstelling plaatsHorizontaal;
-        Opstelling plaatsVerticaal;
+        Opstelling plaatsVerticaal; 
+
+
 
         int        newColStart = 0;             // initialisatie is willekeurig
         int        newRowStart = 0;             // initialisatie is willekeurig
@@ -50,11 +52,9 @@ public class GenereerMogelijkeOpstellingen {
                 else {
                   nextSchip = plaatsHorizontaal.volgendTePlaatsenSchip();
                   if ( schip != nextSchip ) {
-                     newColStart = 1; 
-                     newRowStart = 1;
+                     newColStart = 1; newRowStart = 1;
                   } else {
-                     newColStart = col;
-                     newRowStart = row;
+                     newColStart = col; newRowStart = row;
                   }
                   generate( newColStart, newRowStart, output, plaatsHorizontaal, nextSchip, (level + 1), database );   
                 }  

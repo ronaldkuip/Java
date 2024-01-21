@@ -5,13 +5,11 @@ import java.io.Writer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import EliminatieMachine.Block;
+import Generator.Database;
 import Generator.GenereerMogelijkeOpstellingen;
 import Generator.Opstelling;
 import Generator.Schip;
-import Generator.Database;
-import java.sql.*;
-
-import EliminatieMachine.Block;
 
 public class Applicatie{
 
@@ -33,11 +31,28 @@ public class Applicatie{
 
     public static void main(String[] args) throws IOException {
    
-
-        Block werk = new Block(Schip.SLAGSCHIP);
-
-        System.out.println( "Aantal mogelijkheden: " + werk.mogelijkheden);
+        boolean[] flagsUp = new boolean[10];
+        for(int i=1; i < ( 10 - 1 ); i++) flagsUp[i] = false;
+        flagsUp[0] = true;
+        flagsUp[9] = true;
         
+        new Block(flagsUp, Schip.SLAGSCHIP, 0, 5, 8);
+
+        for( int i=0; i < 256; i++ ) {
+
+          Block b = Block.eliminatieMachine[0][i]; // b as shorthand
+
+          if ( b != null ) {
+             System.out.print( "State: " + i + " ");
+             for( int j=1; j<9; j++ ) {
+                System.out.print( b.posities[j] + "(" + b.transitie[j] + " , " + ( b.getCombinaties() - Block.eliminatieMachine[0][b.transitie[j]].getCombinaties() ) + ")" );
+             }
+             System.out.println( " aantal mogelijkheden: " + b.getCombinaties() );
+             
+          }
+        }
+        
+        /*
         Database database = new Database();
         ResultSet rs = database.queryVlootFormatie();
         //Long bord = 0L;
@@ -56,6 +71,7 @@ public class Applicatie{
          } catch (SQLException e) {
               System.out.println( DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()) + "Er gaat iets fout tijdens het verifieren: ");
          }
+         */
     }
 }
  

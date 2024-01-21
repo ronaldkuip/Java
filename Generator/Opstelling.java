@@ -66,7 +66,7 @@ public class Opstelling {
       return true;
    }
 
-   public int bepaalScheepsLengte( Schip schip ) {
+   static public int bepaalScheepsLengte( Schip schip ) {
 
       switch (schip) {
          case SLAGSCHIP : return 4;
